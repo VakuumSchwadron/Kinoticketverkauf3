@@ -125,7 +125,7 @@ public class PlatzVerkaufsWerkzeug
         _ausgewaehlterGesamtbetrag = 0;
         if (istVerkaufenMoeglich(plaetze))
         {
-            int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            int preis = _vorstellung.getPreisFuerPlaetze(plaetze); //TODO Geldbetrag
             _ui.getPreisLabel().setText(
                     "Gesamtpreis: " + preis + " Eurocent");
             _ausgewaehlterGesamtbetrag = preis;
