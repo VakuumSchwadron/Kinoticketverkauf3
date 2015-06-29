@@ -181,11 +181,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         	_ausreichenderGeldbetrag = false;
             zeigeFehlertext();
         }
-//        catch (NumberFormatException ignore)
-//        {
-//            _ausreichenderGeldbetrag = false;
-//            zeigeFehlertext();
-//        }
+//        
         zeigeAusreichenderGeldbetragStatus();
     }
 

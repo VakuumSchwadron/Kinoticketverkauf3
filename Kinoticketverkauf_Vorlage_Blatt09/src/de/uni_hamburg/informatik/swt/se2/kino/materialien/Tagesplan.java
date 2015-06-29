@@ -82,7 +82,7 @@ public class Tagesplan
      * Gibt alle Vorstellungen des Tages zurück. Die Vorstellungen werden
      * sortiert nach ihrer Anfangszeit zurückgegeben.
      * 
-     * @ensure result != null
+     * @ensure result != null 
      */
     public List<Vorstellung> getVorstellungen()
     {

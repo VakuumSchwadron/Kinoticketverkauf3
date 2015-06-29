@@ -192,7 +192,7 @@ public class Vorstellung
     {
         assert hatPlaetze(plaetze) : "Vorbedingung verletzt: hatPlaetze(plaetze)";
 
-        return _preis.multipliziereMit(plaetze.size());
+        return Geldbetrag.multipliziereMit(plaetze.size(), _preis);
     }
 
     /**

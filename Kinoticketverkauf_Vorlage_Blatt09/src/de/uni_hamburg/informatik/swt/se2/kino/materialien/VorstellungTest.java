@@ -47,7 +47,7 @@ public class VorstellungTest
         assertEquals(_16_45, v.getAnfangszeit());
         assertEquals(_20_15, v.getEndzeit());
         assertEquals(_11_07_2008, v.getDatum());
-        assertEquals(1230, v.getPreis());
+        assertEquals(_1230, v.getPreis());
         assertNotNull(v.toString());
     }
 

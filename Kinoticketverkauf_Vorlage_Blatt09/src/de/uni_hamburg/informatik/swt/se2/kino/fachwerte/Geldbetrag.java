@@ -53,45 +53,52 @@ public final class Geldbetrag
     }
 
     /**
-     * Addiert den Geldbetrag mit dem übergebenen Summanden.
+     * Addiert die uebergebenen Geldbetraege.
      * 
-     * @param summand Geldbetrag, der hinzuaddiert werden soll
-     * @return Die Summe aus dem Geldbetrag und dem übergebenen Geldbetrag.
+     * @param summand1 Erster Summand
+     * @param summand2 Zweiter Summand
+     * @return Die Summe aus den beiden Geldbetraegen
      * 
-     *  @require summand != null
+     *  @require summand1 != null
+     *  @require summand2 != null
      */
-    public Geldbetrag addiere(Geldbetrag summand)
+    public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
     {
-        assert summand != null : "Vorbedingung verletzt: null";
+        assert summand1 != null : "Vorbedingung verletzt: null";
+        assert summand2 != null : "Vorbedingung verletzt: null";
     	
-    	return new Geldbetrag(_betrag + summand.getBetrag());
+    	return new Geldbetrag(summand1.getBetrag() + summand2.getBetrag());
     }
 
     /**
-     * Subtrahiert den übergebenen Subtrahend vom Geldbetrag. 
+     * Subtrahiert den übergebenen Subtrahend vom Minuenden. 
      * 
      * @param subtrahend Geldbetrag, der abgezogen werden soll
-     * @return Die Differenz aus dem Geldbetrag und dem übergebenen Geldbetrag.
+     * @param minuend Geldbetrag, von dem abgezogen werden soll
+     * @return Die Differenz aus den übergebenen Geldbetraegen.
      * 
      *  @require subtrahend != null
+     *  @require minuend != null
      */
-    public Geldbetrag subtrahiere(Geldbetrag subtrahend)
+    public static Geldbetrag subtrahiere(Geldbetrag minuend, Geldbetrag subtrahend)
     {
     	assert subtrahend != null : "Vorbedingung verletzt: null";
+    	assert minuend != null : "Vorbedingung verletzt: null";
     	
-    	return new Geldbetrag(_betrag - subtrahend.getBetrag());
+    	return new Geldbetrag(minuend.getBetrag() - subtrahend.getBetrag());
     }
 
     /**
      * Multipliziert den Geldbetrag mit dem angegebenen Faktor.
      * 
      * @param i Faktor, mit dem der Geldbetrag multipliziert wird
+     * @param betrag Der Geldbetrag, der multipliziert wreden soll
      * 
      * @return Produkt aus dem Geldbetrag und dem übergebenen Faktor
      */
-    public Geldbetrag multipliziereMit(int i)
+    public static Geldbetrag multipliziereMit(int i, Geldbetrag betrag)
     {
-        return new Geldbetrag(i * _betrag);
+        return new Geldbetrag(i * betrag.getBetrag());
     }
 
     /**
@@ -104,13 +111,16 @@ public final class Geldbetrag
      * 
      * @require s != null
      */
-    public static Geldbetrag umwandlungStringZuGeldbetrag(String s) throws Exception //wie macht man das noch mal mit den Exceptions?
+    public static Geldbetrag umwandlungStringZuGeldbetrag(String s) throws GameOfThrowsException 
     {
     	assert s != null : "Vorbedingung verletzt: null";
 
     	String[] komponenten = s.split(",", 2); //der String wird maximal in zwei Strings aufgeteilt und zwar beim ersten Komma
 
-        if(komponenten[0].equals(""))
+        try
+        {
+            if(komponenten[0].equals("")||komponenten[0].equals("-"))
+        
         {
         	komponenten[0] = "0";
         }
@@ -122,7 +132,16 @@ public final class Geldbetrag
         		{
         	throw new Exception();
         		}
-        
+        if(komponenten[1].length()==1)
+        {
+            return new Geldbetrag(Long.parseLong(komponenten[0]) * 100
+                    + Long.parseLong(komponenten[1])*10);
+        }
+        }
+        catch(Exception e)
+        {
+            throw new GameOfThrowsException();
+        }
 
         return new Geldbetrag(Long.parseLong(komponenten[0]) * 100
                 + Long.parseLong(komponenten[1]));

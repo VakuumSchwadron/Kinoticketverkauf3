@@ -28,11 +28,11 @@ public class GeldbetragTest
         Geldbetrag betrag3 = new Geldbetrag(0);
         Geldbetrag betrag4 = new Geldbetrag(-4235);
         
-        assertTrue(betrag1.addiere(betrag1).getBetrag() == 1460);
-        assertTrue(betrag1.addiere(betrag2).getBetrag() == -110);
-        assertTrue(betrag1.addiere(betrag3).getBetrag() == 730);
-        assertTrue(betrag2.addiere(betrag4).getBetrag() == -5075);
-        assertTrue(betrag3.addiere(betrag4).getBetrag() == -4235);
+        assertTrue(Geldbetrag.addiere(betrag1,betrag1).getBetrag() == 1460);
+        assertTrue(Geldbetrag.addiere(betrag1,betrag2).getBetrag() == -110);
+        assertTrue(Geldbetrag.addiere(betrag1,betrag3).getBetrag() == 730);
+        assertTrue(Geldbetrag.addiere(betrag2,betrag4).getBetrag() == -5075);
+        assertTrue(Geldbetrag.addiere(betrag3,betrag4).getBetrag() == -4235);
         
         
     }
@@ -45,11 +45,11 @@ public class GeldbetragTest
         Geldbetrag betrag3 = new Geldbetrag(0);
         Geldbetrag betrag4 = new Geldbetrag(4235);
         
-        assertTrue(betrag1.subtrahiere(betrag1).getBetrag() == 0);
-        assertTrue(betrag1.subtrahiere(betrag2).getBetrag() == 1570);
-        assertTrue(betrag1.subtrahiere(betrag3).getBetrag() == 730);
-        assertTrue(betrag2.subtrahiere(betrag4).getBetrag() == -5075);
-        assertTrue(betrag3.subtrahiere(betrag4).getBetrag() == -4235);
+        assertTrue(Geldbetrag.subtrahiere(betrag1,betrag1).getBetrag() == 0);
+        assertTrue(Geldbetrag.subtrahiere(betrag1,betrag2).getBetrag() == 1570);
+        assertTrue(Geldbetrag.subtrahiere(betrag1,betrag3).getBetrag() == 730);
+        assertTrue(Geldbetrag.subtrahiere(betrag2,betrag4).getBetrag() == -5075);
+        assertTrue(Geldbetrag.subtrahiere(betrag3,betrag4).getBetrag() == -4235);
         
     }
     
@@ -73,11 +73,11 @@ public class GeldbetragTest
         Geldbetrag betrag3 = new Geldbetrag(0);
         Geldbetrag betrag4 = new Geldbetrag(-4235);
         
-        assertTrue(betrag1.multipliziereMit(0).equals(new Geldbetrag(0)));
-        assertTrue(betrag3.multipliziereMit(0).equals(new Geldbetrag(0)));
-        assertTrue(betrag2.multipliziereMit(-1).equals(new Geldbetrag(840)));
-        assertTrue(betrag1.multipliziereMit(1000000).equals(new Geldbetrag(730000000)));
-        assertTrue(betrag4.multipliziereMit(10).equals(new Geldbetrag(-42350)));
+        assertTrue(Geldbetrag.multipliziereMit(0, betrag1).equals(new Geldbetrag(0)));
+        assertTrue(Geldbetrag.multipliziereMit(0,betrag3).equals(new Geldbetrag(0)));
+        assertTrue(Geldbetrag.multipliziereMit(-1,betrag2).equals(new Geldbetrag(840)));
+        assertTrue(Geldbetrag.multipliziereMit(1000000,betrag1).equals(new Geldbetrag(730000000)));
+        assertTrue(Geldbetrag.multipliziereMit(10,betrag4).equals(new Geldbetrag(-42350)));
     }
     
     @Test
@@ -120,9 +120,9 @@ public class GeldbetragTest
         Geldbetrag betrag3 = new Geldbetrag(1460);
         Geldbetrag betrag4 = new Geldbetrag(-730);
         
-        assertTrue(betrag1.equals(betrag1));
-        assertTrue(betrag1.equals(betrag2));
-        assertTrue(!betrag1.equals(betrag3));
-        assertTrue(betrag1.equals(betrag4));
+        assertTrue(betrag1.hashCode() == betrag1.hashCode());
+        assertTrue(betrag1.hashCode() == betrag2.hashCode());
+        assertFalse(betrag1.hashCode() == betrag3.hashCode());
+        assertTrue(betrag1.hashCode() == betrag4.hashCode());
     }
 }
