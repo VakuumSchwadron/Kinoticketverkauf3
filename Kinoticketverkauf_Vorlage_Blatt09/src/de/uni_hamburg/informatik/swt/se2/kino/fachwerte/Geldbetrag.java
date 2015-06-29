@@ -1,23 +1,31 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
-
+/**
+ * Ein Geldbetrag in Euro von der Form 'EE,CC'.
+ * 
+ *  
+ * @author VakuumSchwadron
+ * @version SoSe 2015
+ */
 public final class Geldbetrag
 {
-    //TODO Grenzen vom long aufpassen
-    private final long _betrag;
+   //Der Geldbetrag wird intern als Eurocent in einem Long gespeichert.
+	private final long _betrag; //TODO Grenzen vom long aufpassen
 
     /**
+     * Initialisiert ein Exemplar von Geldbetrag
      * 
-     * @param euro
-     * @param cent
-     * 
-     * 
+     * @param betrag Der Geldbetrag in Eurocent
      */
-    public Geldbetrag(long betrag)
+	public Geldbetrag(long betrag)
     {
         _betrag = betrag;
     }
 
+	/**
+	 * Liefert einen String, in dem der Geldbetrag in der Form "EE,CC" steht.
+	 * @return Der Geldbetrag in String-Repraesentation ("EE,CC")
+	 */
     public String stringRepraesentation()
     {
         String euro = Long.toString(Math.abs(_betrag / 100));
@@ -34,26 +42,52 @@ public final class Geldbetrag
         return euro + "," + cent;
     }
 
+    /**
+     * Liefert den Long, in dem der Geldbetrag in Eurocent gespeichert ist.
+     * 
+     * @return Geldbetrag in Eurocent
+     */
     public long getBetrag()
     {
         return _betrag;
     }
 
+    /**
+     * Addiert den Geldbetrag mit dem übergebenen Summanden.
+     * 
+     * @param summand Geldbetrag, der hinzuaddiert werden soll
+     * @return Die Summe aus dem Geldbetrag und dem übergebenen Geldbetrag.
+     * 
+     *  @require summand != null
+     */
     public Geldbetrag addiere(Geldbetrag summand)
     {
-        return new Geldbetrag(_betrag + summand.getBetrag());
-    }
-
-    public Geldbetrag subtrahiere(Geldbetrag subtrahend)
-    {
-        return new Geldbetrag(_betrag - subtrahend.getBetrag());
+        assert summand != null : "Vorbedingung verletzt: null";
+    	
+    	return new Geldbetrag(_betrag + summand.getBetrag());
     }
 
     /**
+     * Subtrahiert den übergebenen Subtrahend vom Geldbetrag. 
      * 
-     * @param i
-     * @return
+     * @param subtrahend Geldbetrag, der abgezogen werden soll
+     * @return Die Differenz aus dem Geldbetrag und dem übergebenen Geldbetrag.
      * 
+     *  @require subtrahend != null
+     */
+    public Geldbetrag subtrahiere(Geldbetrag subtrahend)
+    {
+    	assert subtrahend != null : "Vorbedingung verletzt: null";
+    	
+    	return new Geldbetrag(_betrag - subtrahend.getBetrag());
+    }
+
+    /**
+     * Multipliziert den Geldbetrag mit dem angegebenen Faktor.
+     * 
+     * @param i Faktor, mit dem der Geldbetrag multipliziert wird
+     * 
+     * @return Produkt aus dem Geldbetrag und dem übergebenen Faktor
      */
     public Geldbetrag multipliziereMit(int i)
     {
@@ -61,15 +95,20 @@ public final class Geldbetrag
     }
 
     /**
+     * Ein übergebener String wird in einen Geldbetrag konvertiert.
+     * Dies ist nur dann möglich, wenn der String die Form "EE,CC", "EE" bzw ",CC" erfüllt. 
      * 
-     * @param s
-     * @return
-     * @throws Exception
+     * @param s String, der in einen Geldbetrag umgewandelt werden sollen
+     * @return Geldbetrag, der im String als Text geschrieben wurde
+     * @throws Exception Der String erfüllt nicht die Form "EE,CC", "EE" bzw ",CC"
+     * 
      * @require s != null
      */
     public static Geldbetrag umwandlungStringZuGeldbetrag(String s) throws Exception //wie macht man das noch mal mit den Exceptions?
     {
-        String[] komponenten = s.split(",", 2); //der String wird maximal in zwei Strings aufgeteilt und zwar beim ersten Komma
+    	assert s != null : "Vorbedingung verletzt: null";
+
+    	String[] komponenten = s.split(",", 2); //der String wird maximal in zwei Strings aufgeteilt und zwar beim ersten Komma
 
         if(komponenten[0].equals(""))
         {
@@ -87,14 +126,27 @@ public final class Geldbetrag
 
         return new Geldbetrag(Long.parseLong(komponenten[0]) * 100
                 + Long.parseLong(komponenten[1]));
-
     }
 
+    /**
+     * Ein übergebener int, der den Geldbetrag in Eurocent angibt, wird in einen Geldbetrag konvertiert.
+     * 
+     * @param betrag Geldbetrag in Eurocent, der in einen Geldbetrag umgewandelt werden sollen
+     * @return Geldbetrag, der im int in Eurocent angegeben wurde
+     * 
+     */
     public static Geldbetrag umwandlungIntZuGeldbetrag(int betrag)
     {
         return new Geldbetrag(betrag);
     }
     
+    /**
+    * Ein übergebener Integer, der den Geldbetrag in Eurocent angibt, wird in einen Geldbetrag konvertiert.
+    * 
+    * @param betrag Geldbetrag in Eurocent, der in einen Geldbetrag umgewandelt werden sollen
+    * @return Geldbetrag, der im int in Eurocent angegeben wurde
+    * 
+    */
     public static Geldbetrag umwandlungIntegerZuGeldbetrag(Integer betrag)
     {
         return new Geldbetrag(betrag.intValue());
