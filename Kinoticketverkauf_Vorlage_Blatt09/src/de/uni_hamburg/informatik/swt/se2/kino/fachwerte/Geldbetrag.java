@@ -71,10 +71,19 @@ public final class Geldbetrag
     {
         String[] komponenten = s.split(",", 2); //der String wird maximal in zwei Strings aufgeteilt und zwar beim ersten Komma
 
-        if (komponenten.length == 1)
+        if(komponenten[0].equals(""))
+        {
+        	komponenten[0] = "0";
+        }
+        if (komponenten.length == 1 || komponenten[1].equals(""))
         {
             return new Geldbetrag(Long.parseLong(komponenten[0]) * 100);
         }
+        if(komponenten[1].length() > 2)
+        		{
+        	throw new Exception();
+        		}
+        
 
         return new Geldbetrag(Long.parseLong(komponenten[0]) * 100
                 + Long.parseLong(komponenten[1]));

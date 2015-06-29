@@ -7,10 +7,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 
 /**
- * TODO für Blatt 8: Löschen
+ * 
  * 
  * Das Barzahlungswerkzeug behandelt die Kasseneingabe. Es ermöglicht die
  * Eingabe eines gezahlten Betrags und ermittelt automatisch den Restbetrag zur
@@ -34,7 +35,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
 {
 
     private BarzahlungsWerkzeugUI _ui;
-    private int _preis; //TODO Geldbetrag
+    private Geldbetrag _preis;
     private boolean _barzahlungErfolgreich;
     private boolean _ausreichenderGeldbetrag;
 
@@ -55,9 +56,9 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param preis der einzunehmende Gelbetrag
      */
-    public void fuehreBarzahlungDurch(int preis)
+    public void fuehreBarzahlungDurch(Geldbetrag preis)
     {
-        _preis = preis; //TODO new Geldbetrag
+        _preis = preis; 
         _ausreichenderGeldbetrag = false;
         _barzahlungErfolgreich = false;
         setzeUIAnfangsstatus();
@@ -146,7 +147,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
                     }
                     break;
                 default:
-                    reagiereAufEingabeText(_ui.getGezahltTextfield().getText());
+                    reagiereAufEingabeText(_ui.getGezahltTextfield().getText());//TODO
                 }
             }
         });
@@ -160,7 +161,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param eingabePreis der bisher eingegebene Preis
      */
-    private void reagiereAufEingabeText(String eingabePreis) //TODO Geldbetrag
+    private void reagiereAufEingabeText(String eingabePreis)
     {
         if (eingabePreis.isEmpty())
         {
@@ -168,16 +169,23 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         }
         try
         {
-            int eingabeBetrag = Integer.parseInt(eingabePreis);
-            _ausreichenderGeldbetrag = (eingabeBetrag >= _preis);
-            int differenz = Math.abs(eingabeBetrag - _preis);
+        	Geldbetrag eingabeBetrag = Geldbetrag.umwandlungStringZuGeldbetrag(eingabePreis);
+        	
+           // Geldbetrag eingabeBetrag = new Geldbetrag(Integer.parseInt(eingabePreis));
+            _ausreichenderGeldbetrag = (eingabeBetrag.getBetrag() >= _preis.getBetrag());
+            Geldbetrag differenz = new Geldbetrag(Math.abs(eingabeBetrag.getBetrag() - _preis.getBetrag()));
             zeigeRestbetrag(differenz);
         }
-        catch (NumberFormatException ignore)
+        catch (Exception e)
         {
-            _ausreichenderGeldbetrag = false;
+        	_ausreichenderGeldbetrag = false;
             zeigeFehlertext();
         }
+//        catch (NumberFormatException ignore)
+//        {
+//            _ausreichenderGeldbetrag = false;
+//            zeigeFehlertext();
+//        }
         zeigeAusreichenderGeldbetragStatus();
     }
 
@@ -206,7 +214,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
     {
         zeigePreis();
         loescheGezahltenBetrag();
-        zeigeRestbetrag(_preis); //TODO _preis.getPreis()
+        zeigeRestbetrag(_preis);
         zeigeAusreichenderGeldbetragStatus();
     }
 
@@ -246,9 +254,9 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param differenz ein eingegebener Betrag
      */
-    private void zeigeRestbetrag(int differenz)
+    private void zeigeRestbetrag(Geldbetrag differenz)
     {
-        _ui.getRestbetragTextfield().setText(differenz + " Eurocent"); //TODO Euro
+        _ui.getRestbetragTextfield().setText(differenz.stringRepraesentation() + " €");
     }
 
     /**
@@ -256,6 +264,5 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      */
     private void zeigePreis()
     {
-        _ui.getPreisTextfield().setText(_preis + " Eurocent"); //TODO Euro
-    }
+        _ui.getPreisTextfield().setText(_preis.stringRepraesentation() + " €");     }
 }
