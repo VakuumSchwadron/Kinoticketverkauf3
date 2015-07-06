@@ -140,7 +140,7 @@ public final class Geldbetrag
         }
         catch(Exception e)
         {
-            throw new GameOfThrowsException();
+            throw new GameOfThrowsException(s);
         }
 
         return new Geldbetrag(Long.parseLong(komponenten[0]) * 100
