@@ -3,7 +3,7 @@ package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 public class GameOfThrowsException extends Exception
 {
     /**
-	 * 
+	 * Exception Handling in Falle von Textfield Missbrauch.
 	 */
 	private static final long serialVersionUID = 1L;
 
