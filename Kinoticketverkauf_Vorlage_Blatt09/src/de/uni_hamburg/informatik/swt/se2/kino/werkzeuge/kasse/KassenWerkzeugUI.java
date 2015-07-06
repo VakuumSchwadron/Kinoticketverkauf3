@@ -73,6 +73,7 @@ class KassenWerkzeugUI
     public void schliesseFenster()
     {
         _frame.dispose();
+        System.exit(0);
     }
 
     /**
